@@ -1,0 +1,130 @@
+:root {
+    --theme-color: #ff6b6b;
+    --bg-color: #222831;
+    --panel-bg: #393e46;
+    --text-color: #eeeeee;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    background: var(--panel-bg);
+    padding: 30px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.tab-btn {
+    flex: 1;
+    background: #555;
+    color: white;
+    border: none;
+    padding: 8px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tab-btn.active {
+    background: var(--theme-color);
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
+.timer-display {
+    margin: 20px auto;
+    padding: 20px;
+    border: 4px solid var(--theme-color);
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: border-color 0.5s;
+}
+
+#time-left {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.controls button, #save-settings-btn {
+    background: var(--theme-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.controls button:hover, #save-settings-btn:hover {
+    filter: brightness(1.2);
+}
+
+.settings {
+    margin-top: 25px;
+    text-align: left;
+    background: #2d3238;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.settings label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.settings input, .settings select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background: #444;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+.settings input[type="color"] {
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.stats {
+    font-size: 0.9rem;
+    color: #00adb5;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
