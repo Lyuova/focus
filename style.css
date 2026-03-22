@@ -29,7 +29,12 @@ body {
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-.tab-btn.active { background: var(--theme-color); font-weight: bold; transform: scale(1.05); }
+.tab-btn.active { 
+    background: var(--theme-color); 
+    color: var(--theme-text-color); /* Обновлено */
+    font-weight: bold; 
+    transform: scale(1.05); 
+}
 
 .timer-display {
     margin: 20px auto; padding: 20px; border: 4px solid var(--theme-color);
@@ -40,7 +45,9 @@ body {
 #time-left { font-size: 3.5rem; font-weight: bold; margin: 10px 0; }
 
 .controls button, #save-settings-btn {
-    background: var(--theme-color); color: white; border: none; padding: 10px 20px;
+    background: var(--theme-color); 
+    color: var(--theme-text-color); /* Обновлено */
+    border: none; padding: 10px 20px;
     margin: 5px; border-radius: 5px; cursor: pointer; font-size: 1rem;
     font-weight: bold; transition: background 0.3s; width: 100%; box-sizing: border-box;
 }
@@ -79,7 +86,11 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
 .cycles-selector { display: flex; gap: 8px; margin-top: 5px; }
-.cycles-selector input[type="radio"] { display: none; }
+.cycles-selector input[type="radio"]:checked + label {
+    background: var(--theme-color); 
+    color: var(--theme-text-color); /* Обновлено */
+    border-color: var(--theme-text-color); /* Заодно и обводку сделаем контрастной */
+}
 .cycles-selector label {
     flex: 1; text-align: center; padding: 8px 0; background: #444;
     color: white; border-radius: 5px; cursor: pointer; transition: 0.2s; border: 2px solid transparent; margin: 0; font-weight: bold;
