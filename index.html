@@ -33,24 +33,34 @@
             <h3>Настройки профиля</h3>
             
             <label>Название: <input type="text" id="profile-name" maxlength="20"></label>
-            <label>Цвет профиля: <input type="color" id="profile-color"></label>
+            <label class="color-label">Цвет профиля: <input type="color" id="profile-color"></label>
 
             <div class="time-settings-grid">
-                <label>Работа (мин): <input type="number" id="work-time" min="20" max="120" step="5"></label>
-                <label>Кор. перерыв: 
-                    <select id="short-break">
-                        <option value="5">5</option><option value="10">10</option>
-                        <option value="15">15</option><option value="20">20</option>
-                    </select>
-                </label>
-                <label>Длин. перерыв: 
-                    <select id="long-break">
-                        <option value="15">15</option><option value="20">20</option>
-                        <option value="25">25</option><option value="30">30</option>
-                        <option value="35">35</option><option value="40">40</option>
-                    </select>
-                </label>
-                <label>Циклы: <input type="number" id="cycles-input" min="1" max="5"></label>
+                <div class="slider-group">
+                    <label>Работа: <span id="work-val" class="val-display">25</span> мин</label>
+                    <input type="range" id="work-time" min="20" max="120" step="5">
+                </div>
+                
+                <div class="slider-group">
+                    <label>Кор. перерыв: <span id="short-break-val" class="val-display">5</span> мин</label>
+                    <input type="range" id="short-break" min="5" max="20" step="5">
+                </div>
+                
+                <div class="slider-group">
+                    <label>Длин. перерыв: <span id="long-break-val" class="val-display">20</span> мин</label>
+                    <input type="range" id="long-break" min="15" max="40" step="5">
+                </div>
+                
+                <div class="cycles-group">
+                    <label>Количество циклов:</label>
+                    <div class="cycles-selector">
+                        <input type="radio" name="cycles" id="c1" value="1"><label for="c1">1</label>
+                        <input type="radio" name="cycles" id="c2" value="2"><label for="c2">2</label>
+                        <input type="radio" name="cycles" id="c3" value="3"><label for="c3">3</label>
+                        <input type="radio" name="cycles" id="c4" value="4"><label for="c4">4</label>
+                        <input type="radio" name="cycles" id="c5" value="5"><label for="c5">5</label>
+                    </div>
+                </div>
             </div>
             
             <h3>Музыка (YouTube)</h3>
