@@ -7,14 +7,16 @@ let currentProfileIndex = 0;
 
 let stats = { sessionsCompleted: 0, totalWorkMinutes: 0 };
 
+// Изменены стандартные названия профилей
 let profiles = [
     { name: "Помодоро", color: "#ff6b6b", work: 25, shortBreak: 5, longBreak: 20, cycles: 4, workUrl: "", breakUrl: "" },
-    { name: "Название 1", color: "#74b9ff", work: 45, shortBreak: 10, longBreak: 25, cycles: 3, workUrl: "", breakUrl: "" },
-    { name: "Название 2", color: "#a29bfe", work: 60, shortBreak: 15, longBreak: 30, cycles: 2, workUrl: "", breakUrl: "" },
-    { name: "Название 3", color: "#fdcb6e", work: 90, shortBreak: 20, longBreak: 40, cycles: 2, workUrl: "", breakUrl: "" },
-    { name: "Название 4", color: "#00b894", work: 20, shortBreak: 5, longBreak: 15, cycles: 5, workUrl: "", breakUrl: "" }
+    { name: "Название 2", color: "#74b9ff", work: 45, shortBreak: 10, longBreak: 25, cycles: 3, workUrl: "", breakUrl: "" },
+    { name: "Название 3", color: "#a29bfe", work: 60, shortBreak: 15, longBreak: 30, cycles: 2, workUrl: "", breakUrl: "" },
+    { name: "Название 4", color: "#fdcb6e", work: 90, shortBreak: 20, longBreak: 40, cycles: 2, workUrl: "", breakUrl: "" },
+    { name: "Название 5", color: "#00b894", work: 20, shortBreak: 5, longBreak: 15, cycles: 5, workUrl: "", breakUrl: "" }
 ];
 
+// Базовые пресеты (закладки)
 const defaultMusicPresets = {
     work: [
         { name: "14 Hz Waves", url: "https://youtu.be/oiQyocwHJLA" },
@@ -40,14 +42,24 @@ let activeVideoIdWork = "", activeVideoIdBreak = "";
 window.onload = () => {
     loadData();
     renderTabs();
-    setupSliders(); // Инициализация динамических ползунков
+    setupSliders();
     loadProfileIntoUI();
     renderPresets();
     resetTimer();
     updateStatsDisplay();
 };
 
-// --- YOUTUBE API --- (без изменений)
+// Функция определения контрастного цвета текста
+function getContrastColor(hexColor) {
+    hexColor = hexColor.replace('#', '');
+    let r = parseInt(hexColor.substr(0, 2), 16);
+    let g = parseInt(hexColor.substr(2, 2), 16);
+    let b = parseInt(hexColor.substr(4, 2), 16);
+    let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#000000' : '#ffffff';
+}
+
+// --- YOUTUBE API ---
 function onYouTubeIframeAPIReady() {
     playerWork = new YT.Player('yt-player-work', {
         height: '0', width: '0', playerVars: { 'autoplay': 0, 'controls': 0 },
@@ -91,7 +103,7 @@ function playMusic(mode) {
     }
 }
 
-// --- ПРЕСЕТЫ МУЗЫКИ --- (без изменений)
+// --- ПРЕСЕТЫ МУЗЫКИ ---
 function renderPresets() {
     const workContainer = document.getElementById('work-presets');
     const breakContainer = document.getElementById('break-presets');
@@ -159,7 +171,7 @@ function selectProfile(index) {
     saveData();
 }
 
-// Привязываем ползунки к цифрам над ними
+// Инициализация ползунков
 function setupSliders() {
     const updateVal = (id) => {
         document.getElementById(id + '-val').textContent = document.getElementById(id).value;
@@ -173,15 +185,14 @@ function loadProfileIntoUI() {
     let p = profiles[currentProfileIndex];
     document.documentElement.style.setProperty('--theme-color', p.color);
     
-    // --- ДОБАВИТЬ ЭТИ ДВЕ СТРОКИ ---
+    // Подстраиваем цвет текста под яркость фона профиля
     let textColor = getContrastColor(p.color);
     document.documentElement.style.setProperty('--theme-text-color', textColor);
-    // -------------------------------
     
     document.getElementById('profile-name').value = p.name;
     document.getElementById('profile-color').value = p.color;
     
-    // Устанавливаем ползунки и сразу обновляем текст
+    // Обновляем ползунки и цифры над ними
     document.getElementById('work-time').value = p.work;
     document.getElementById('work-time-val').textContent = p.work;
     
@@ -191,14 +202,15 @@ function loadProfileIntoUI() {
     document.getElementById('long-break').value = p.longBreak;
     document.getElementById('long-break-val').textContent = p.longBreak;
     
-    // Устанавливаем активную радио-кнопку для циклов
+    // Обновляем радио-кнопки
     document.querySelector(`input[name="cycles"][value="${p.cycles}"]`).checked = true;
 
+    // Обновляем ссылки на музыку
     document.getElementById('work-music').value = p.workUrl;
     document.getElementById('break-music').value = p.breakUrl;
 }
 
-// --- ЛОГИКА ТАЙМЕРА --- (без изменений)
+// --- ЛОГИКА ТАЙМЕРА ---
 function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60); let seconds = timeLeft % 60;
     document.getElementById('time-left').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
@@ -250,12 +262,10 @@ document.getElementById('save-settings-btn').addEventListener('click', () => {
     p.name = document.getElementById('profile-name').value || "Без имени";
     p.color = document.getElementById('profile-color').value;
     
-    // Считываем значения с ползунков
     p.work = parseInt(document.getElementById('work-time').value);
     p.shortBreak = parseInt(document.getElementById('short-break').value);
     p.longBreak = parseInt(document.getElementById('long-break').value);
     
-    // Считываем активную радио-кнопку
     const selectedCycle = document.querySelector('input[name="cycles"]:checked');
     p.cycles = selectedCycle ? parseInt(selectedCycle.value) : 4;
 
@@ -289,23 +299,8 @@ function updateStatsDisplay() {
     document.getElementById('sessions-count').textContent = stats.sessionsCompleted;
     document.getElementById('hours-count').textContent = (stats.totalWorkMinutes / 60).toFixed(1);
 }
-function getContrastColor(hexColor) {
-    // Убираем решетку, если она есть
-    hexColor = hexColor.replace('#', '');
-    
-    // Переводим цвет в RGB
-    let r = parseInt(hexColor.substr(0, 2), 16);
-    let g = parseInt(hexColor.substr(2, 2), 16);
-    let b = parseInt(hexColor.substr(4, 2), 16);
-    
-    // Вычисляем яркость
-    let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-    
-    // Возвращаем черный для светлых фонов и белый для темных
-    return (yiq >= 128) ? '#000000' : '#ffffff';
-}
-
 
 document.getElementById('start-btn').addEventListener('click', startTimer);
 document.getElementById('pause-btn').addEventListener('click', pauseTimer);
 document.getElementById('reset-btn').addEventListener('click', resetTimer);
+
