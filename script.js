@@ -11,10 +11,10 @@ let stats = { sessionsCompleted: 0, totalWorkMinutes: 0 };
 // 5 базовых профилей
 let profiles = [
     { name: "Помодоро", color: "#ff6b6b", work: 25, shortBreak: 5, longBreak: 20, cycles: 4, workUrl: "", breakUrl: "" },
-    { name: "Кодинг", color: "#74b9ff", work: 45, shortBreak: 10, longBreak: 25, cycles: 3, workUrl: "", breakUrl: "" },
-    { name: "Геймдев", color: "#a29bfe", work: 60, shortBreak: 15, longBreak: 30, cycles: 2, workUrl: "", breakUrl: "" },
-    { name: "Учеба (ІПСА)", color: "#fdcb6e", work: 90, shortBreak: 20, longBreak: 40, cycles: 2, workUrl: "", breakUrl: "" },
-    { name: "CatWar", color: "#00b894", work: 20, shortBreak: 5, longBreak: 15, cycles: 5, workUrl: "", breakUrl: "" }
+    { name: "???", color: "#74b9ff", work: 45, shortBreak: 10, longBreak: 25, cycles: 3, workUrl: "", breakUrl: "" },
+    { name: "???", color: "#a29bfe", work: 60, shortBreak: 15, longBreak: 30, cycles: 2, workUrl: "", breakUrl: "" },
+    { name: "???", color: "#fdcb6e", work: 90, shortBreak: 20, longBreak: 40, cycles: 2, workUrl: "", breakUrl: "" },
+    { name: "???", color: "#00b894", work: 20, shortBreak: 5, longBreak: 15, cycles: 5, workUrl: "", breakUrl: "" }
 ];
 
 let playerWork, playerBreak;
